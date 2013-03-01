@@ -1,9 +1,9 @@
 define([
-	"dojo/array",
+	"dojo/_base/array",
 	"dojo/Deferred",
 	"dojo/promise/all"
 ], function(array, Deferred, all){
-	function loadImage(imageUrl){
+	function load(imageUrl){
 		var dfd = new Deferred();
 
 		var image = new Image();
@@ -18,7 +18,7 @@ define([
 		return dfd.promise;
 	}
 
-	function image(urls){
+	return function loadImage(urls){
 		// summary:
 		//		Takes one or more image URLs and returns a new promise that is fulfilled
 		//		when all images have been loaded.
@@ -33,19 +33,19 @@ define([
 		//		a list of results if invoked with an array, or an object of results when passed
 		//		an object (using the same keys). 
 
-		if(urls instanceof String){
-			return loadImage(urls);
+		if(typeof urls === "string"){
+			return load(urls);
 		} else {
 			var promises;
 			if(urls instanceof Array){
 				promises = array.map(urls, function(imageUrl){
-					return loadImage(imageUrl);
+					return load(imageUrl);
 				});
 			} else if(urls instanceof Object){
 				promises = {};
 				for(var key in urls){
 					if(urls.hasOwnProperty(key)){
-						promises[key] = urls[key];
+						promises[key] = load(urls[key]);
 					}
 				}
 			} else {
@@ -54,6 +54,4 @@ define([
 			return all(promises);
 		}
 	};
-
-	return image;
 });
