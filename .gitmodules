@@ -1,0 +1,6 @@
+[submodule "dojo"]
+	path = dojo
+	url = https://github.com/dojo/dojo.git
+[submodule "teststack"]
+	path = teststack
+	url = https://github.com/csnover/dojo2-teststack.git
