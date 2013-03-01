@@ -27,10 +27,11 @@ define([
         //		when all images have been loaded. If one of the images fails to load,
         //		the returned promise is rejected. 
         // urls: String|Array|Object
+		//		A single URL, an array of URLs, or an object comprised of key/URL pairs.
+        // returns: dojo/promise/Promise
         //		The promise will be fulfilled with a single image if invoked with a string,
         //		a list of results if invoked with an array, or an object of results when passed
         //		an object (using the same keys). 
-        // returns: dojo/promise/Promise
 
         if(urls instanceof String) {
             return loadImage(urls);
