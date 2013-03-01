@@ -55,9 +55,5 @@ define([
         }
     };
 
-    image.load = function(id, require, callback) {
-        image(id).then(callback);
-    };
-
     return image;
 });
