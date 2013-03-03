@@ -93,12 +93,12 @@ define([
 			promises = array.map(arrayOrObject, function(imageSpec){
 				return load(srcRoot, defaultAttributes, imageSpec);
 			});
-		} else if(arrayOrObject instanceof Object){
+		}else if(arrayOrObject instanceof Object){
 			promises = {};
 			for(var key in arrayOrObject){
 				promises[key] = load(srcRoot, defaultAttributes, arrayOrObject[key]);
 			}
-		} else {
+		}else{
 			throw new Error("Argument must be an Array or Object.");
 		}
 		return all(promises);
