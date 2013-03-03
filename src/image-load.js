@@ -19,7 +19,7 @@ define([
 	=====*/
 
 	var trailingSlashPattern = /\/$/;
-	function preparesrcRoot(srcRoot){
+	function prepareSrcRoot(srcRoot){
 		return trailingSlashPattern.test(srcRoot) ? srcRoot : (srcRoot + "/");
 	}
 
@@ -85,7 +85,7 @@ define([
 
 		arrayOrObject || ((arrayOrObject = options) && (options = {}));
 		
-		var srcRoot = options.srcRoot && preparesrcRoot(srcRoot),
+		var srcRoot = options.srcRoot && prepareSrcRoot(options.srcRoot),
 			defaultAttributes = options.defaultAttributes || {},
 			promises;
 

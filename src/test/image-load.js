@@ -58,12 +58,118 @@ define([
 			return deferredFailure(t, imageLoad.one(imageAttributes));
 		},
 		function loadMultiple_Array(t){
+			var dfd = new doh.Deferred();
+			var firstImageAttributes = {
+				src: require.toUrl("./sample.png"),
+				alt: "first"
+			};
+			var secondImageAttributes = {
+				src: require.toUrl("./sample2.png"),
+				alt: "second"
+			};
+			var thirdImageUrl = require.toUrl("./sample3.png");
+			imageLoad([
+				firstImageAttributes,
+				secondImageAttributes,
+				thirdImageUrl
+			]).then(
+				dfd.getTestCallback(function(images){
+					t.assertEqual(firstImageAttributes.alt, images[0].alt);
+					t.assertEqual(secondImageAttributes.alt, images[1].alt);
+					t.assertTrue(/sample3\.png$/.test(images[2].src));
+				}),
+				lang.hitch(dfd, "errback")
+			);
+			return dfd;
 		},
 		function failToLoadMultiple_Array(t){
+			return deferredFailure(t, imageLoad([
+				require.toUrl("./sample-nonexistent.png"), require.toUrl("./sample.png")
+			]));
 		},
 		function loadMultiple_Object(t){
+			var dfd = new doh.Deferred();
+			var firstImageAttributes = {
+				src: require.toUrl("./sample.png"),
+				alt: "first"
+			};
+			var secondImageAttributes = {
+				src: require.toUrl("./sample2.png"),
+				alt: "second"
+			};
+			var thirdImageUrl = require.toUrl("./sample3.png");
+			imageLoad({
+				first: firstImageAttributes,
+				second: secondImageAttributes,
+				third: thirdImageUrl
+			}).then(
+				dfd.getTestCallback(function(images){
+					t.assertEqual(firstImageAttributes.alt, images.first.alt);
+					t.assertEqual(secondImageAttributes.alt, images.second.alt);
+					t.assertTrue(/sample3\.png$/.test(images.third.src));
+				}),
+				lang.hitch(dfd, "errback")
+			);
+			return dfd;
 		},
 		function failToLoadMultiple_Object(t){
+			return deferredFailure(t, imageLoad({
+				existing: require.toUrl("./sample.png"),
+				nonExistent: require.toUrl("./sample-nonexistent.png")
+			}));
+		},
+		function testOption_srcRoot(t){
+			var dfd = new doh.Deferred();
+			imageLoad({
+				srcRoot: require.toUrl(".")
+			},{
+				first: "sample.png",
+				second: "sample2.png"
+			}).then(
+				dfd.getTestCallback(function(images){
+					t.assertTrue(/sample\.png$/.test(images.first.src));
+					t.assertTrue(/sample2\.png$/.test(images.second.src));
+				}),
+				lang.hitch(dfd, "errback")
+			);
+			return dfd;
+		},
+		function testOption_defaultAttributes(t){
+			var dfd = new doh.Deferred();
+			var defaultAttributes = {
+				src: require.toUrl("./sample.png"),
+				alt: "deef alt",
+				width: 24,
+				height: 12
+			};
+			var imagesToLoad = {
+				first: require.toUrl("./sample.png"),
+				second: {
+					width: 42	
+				},
+				third: {
+					alt: "third image",
+					height: 321
+				}
+			};
+			imageLoad({ defaultAttributes: defaultAttributes }, imagesToLoad).then(
+				dfd.getTestCallback(function(images){
+					t.assertEqual(defaultAttributes.alt, images.first.alt);
+					t.assertEqual(defaultAttributes.width, images.first.width);
+					t.assertEqual(defaultAttributes.height, images.first.height);
+
+					t.assertEqual(defaultAttributes.alt, images.second.alt);
+					t.assertEqual(imagesToLoad.second.width, images.second.width);
+					t.assertEqual(defaultAttributes.height, images.second.height);
+
+					t.assertEqual(imagesToLoad.third.alt, images.third.alt);
+					t.assertEqual(defaultAttributes.width, images.third.width);
+					t.assertEqual(imagesToLoad.third.height, images.third.height);
+				}),
+				lang.hitch(dfd, "errback")
+			);
+
+			return dfd;
 		}
 	]);
 });
