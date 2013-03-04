@@ -58,7 +58,8 @@ require([ "src/image-load" ], function(imageLoad){
 		// Enjoy an array of uniformly-sized images.
 	});
 
-	// To load a single image
+	// To load a single image, pass a URL string or a hash of image attributes.
+	// one() supports a leading options parameter like the main load function.
 	imageLoad.one("http://some.domain/images/best.png").then(function(bestImage){
 		// Only the best.	
 	});;
