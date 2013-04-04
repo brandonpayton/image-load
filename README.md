@@ -7,7 +7,7 @@ Usage
 -----
 
 Add ```image-load``` to your packages definition in your dojoConfig so it can be
-referenced simply by "image-load".
+identified simply by "image-load".
 
 To use the loader directly:
 ```javascript
