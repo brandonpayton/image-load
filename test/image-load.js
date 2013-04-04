@@ -1,5 +1,5 @@
 define([
-	"../image-load",
+	"../main",
     "doh/main",
 	"require",
 	"dojo/_base/lang"
@@ -169,6 +169,15 @@ define([
 				lang.hitch(dfd, "errback")
 			);
 
+			return dfd;
+		},
+		function testAmdLoaderPlugin(t){
+			var dfd = new doh.Deferred();
+			
+			require([ "../main!./sample.png" ], function(sample){
+				dfd.callback(sample instanceof Image);	
+			});
+			
 			return dfd;
 		}
 	]);

@@ -1,19 +1,17 @@
 Dojo Image Loader
 =================
 
-A promise-based image loader to be proposed for the Dojo 1.9 release.
-
-Motivation
-----------
-I have needed to dynamically load images in multiple projects and scenarios over the last year,
-and while it is not difficult to occassionally write a small module that does just what I need,
-this is looking like something that would be nice to have in the toolkit.
+A promise-based image loader and AMD loader plugin for Dojo 1.8+
 
 Usage
 -----
 
+Add ```image-load``` to your packages definition in your dojoConfig so it can be
+referenced simply by "image-load".
+
+To use the loader directly:
 ```javascript
-require([ "src/image-load" ], function(imageLoad){
+require([ "image-load" ], function(imageLoad){
 
 	// To load an array of images, pass a URL string or attribute hash for each image
 	imageLoad([
@@ -62,7 +60,14 @@ require([ "src/image-load" ], function(imageLoad){
 	// one() supports a leading options parameter like the main load function.
 	imageLoad.one("http://some.domain/images/best.png").then(function(bestImage){
 		// Only the best.	
-	});;
+	});
+});
+```
+
+```image-load``` may also be used as a loader plugin so you can specify image dependencies in your module definition.
+```javascript
+define([ "image-load!./path/to/sample.png" ], function(sampleImage){
+	// Your image dependency is resolved!
 });
 ```
 

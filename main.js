@@ -121,6 +121,11 @@ define([
 			return images[0];
 		});
 	};
+	
+	// AMD loader plugin
+	imageLoad.load = function(id, require, load){
+		imageLoad.one(require.toUrl(id)).then(load);
+	};
 
 	return imageLoad;
 });
