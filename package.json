@@ -1,0 +1,17 @@
+{
+	"name": "image-load",
+	"author": "Brandon C. Payton",
+	"version":"0.0.1",
+	"main": "main",
+	"description": "An image loader and AMD loader plugin for Dojo 1.8+",
+	"licenses": [
+		{ "type": "BSD-3-Clause", "url": "http://trac.dojotoolkit.org/browser/dojo/trunk/LICENSE#L13" }
+	],
+	"bugs": "https://github.com/brandonpayton/image-load/issues",
+	"keywords": [ "JavaScript", "Dojo", "Image", "AMD", "Loader" ],
+	"homepage": "http://dojotoolkit.org/brandonpayton/",
+	"repository": {
+		"type":"git",
+		"url":"https://github.com/brandonpayton/image-load"
+	}
+}
