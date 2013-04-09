@@ -73,4 +73,4 @@ define([ "image-load!./path/to/sample.png" ], function(sampleImage){
 
 ## License
 
-New BSD License © 2013 Brandon Payton http://happycode.net. 
+New BSD License © 2013 Brandon Payton http://happycode.net. Released under Dojo Foundation CLA.
